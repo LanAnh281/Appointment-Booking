@@ -6,6 +6,10 @@ const morgan = require("morgan");
 const path = require("path");
 const bcrypt = require("bcryptjs");
 
+//route
+const accountRouter = require("./app/route/account.route");
+const loginRouter = require("./app/route/login.route");
+const customerRouter = require("./app/route/customer.route");
 // initialize
 const app = express();
 app.use(cors());
@@ -39,7 +43,10 @@ const convertToLowercase = (req, res, next) => {
 
 app.use(convertToLowercase);
 //
+app.use("/api/account", accountRouter);
+app.use("/api/login", loginRouter);
 
+app.use("/api/customer", customerRouter);
 // // check errors
 app.use((req, res, next) => {
   return next(createError(404, "Resource Not Found"));

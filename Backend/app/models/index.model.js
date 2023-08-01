@@ -9,35 +9,71 @@ const setPrimary = {
 };
 
 // Models
-const Customer_Types = sequelize.define("Customer_Types", {
+
+const Account = sequelize.define("Account", {
   _id: setPrimary,
-  name: {
+  userName: {
     type: DataTypes.TEXT,
     allowNull: false,
     validate: {
       notEmpty: {
-        msg: "Tên loại khách hàng không được bỏ trống.",
+        msg: "Tên tài khoản khách hàng không được bỏ trống.",
+      },
+    },
+  },
+  password: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+    validate: {
+      notEmpty: {
+        msg: "mật khẩu khách hàng không được bỏ trống.",
+      },
+    },
+  },
+  role: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+    validate: {
+      notEmpty: {
+        msg: "mật khẩu khách hàng không được bỏ trống.",
       },
     },
   },
 });
 const Customer = sequelize.define("Customer", {
   _id: setPrimary,
-  name: {
+  userName: {
     type: DataTypes.TEXT,
     allowNull: false,
     validate: {
       notEmpty: {
-        msg: "Tên loại khách hàng không được bỏ trống.",
+        msg: "Tên tài khoản khách hàng không được bỏ trống.",
+      },
+    },
+  },
+  password: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+    validate: {
+      notEmpty: {
+        msg: "mật khẩu khách hàng không được bỏ trống.",
+      },
+    },
+  },
+  role: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+    validate: {
+      notEmpty: {
+        msg: "mật khẩu khách hàng không được bỏ trống.",
       },
     },
   },
 });
 // Sync the model with the database
-Customer_Types.sync();
+Account.sync();
 Customer.sync();
-
 module.exports = {
-  Customer_Types,
+  Account,
   Customer,
 };
