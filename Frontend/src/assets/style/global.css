@@ -10,6 +10,8 @@
     --red: #ea5455;
     --orange: #ff9f43;
     --yellow: #ffc107; 
+    --chocolate:#d2691e;
+    --beige:#f2f2d3;
     --header:8vh;
     --footer:8vh;
     --navbar:8vh;
@@ -60,5 +62,13 @@
     background-image: var(--background-login);
     width: 100wh;
     height: 100vh;
-    mask-repeat: no-repeat;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.btn-login{
+    background-color: var(--chocolate);
+    color: var(--white);
+}
+.btn-login:hover{
+    color: var(--beige)
 }
