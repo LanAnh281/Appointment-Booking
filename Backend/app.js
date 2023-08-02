@@ -5,6 +5,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const path = require("path");
 const bcrypt = require("bcryptjs");
+const cookieParser = require("cookie-parser");
 
 //route
 const accountRouter = require("./app/route/account.route");
@@ -15,6 +16,7 @@ const app = express();
 app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
+app.use(cookieParser());
 
 //socket
 const http = require("http");
