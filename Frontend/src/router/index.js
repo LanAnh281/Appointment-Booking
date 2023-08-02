@@ -9,7 +9,12 @@ const routes = [
   {
     path: "/admin/account",
     name: "Account",
-    component: () => import("../view/admin/Account/account.vue"),
+    component: () => import("../view/admin/account/account.vue"),
+  },
+  {
+    path: "/user",
+    name: "User",
+    component: () => import("../view/user/index.vue"),
   },
 ];
 

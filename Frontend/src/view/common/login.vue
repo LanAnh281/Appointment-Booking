@@ -1,12 +1,32 @@
 <script>
+import { reactive } from "vue";
+import Login from "../../service/login.service";
+import { checkCookieExistence } from "../../assets/js/common.login";
 export default {
   components: {},
   setup() {
-    const login = () => {
-      console.log("Login now");
+    const data = reactive({
+      item: {
+        userName: "",
+        password: "",
+      },
+    });
+    const setCookie = (cname, cvalue, exdays) => {
+      const d = new Date();
+      d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+      let expires = "expires=" + d.toUTCString();
+      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    };
+
+    const login = async () => {
+      const document = await Login.login(data.item);
+      console.log(`document:`, document._id);
+      setCookie("token", document.token, 10); //1 ngày
+      setCookie("role", document.role, 10);
     };
     return {
       login,
+      data,
     };
   },
 };
@@ -30,7 +50,12 @@ export default {
               >Mã tài khoản :</label
             >
             <div class="col-sm-9">
-              <input type="text" class="form-control" id="inputUserName" />
+              <input
+                type="text"
+                class="form-control"
+                id="inputUserName"
+                v-model="data.item.userName"
+              />
             </div>
           </div>
           <div class="form-group row">
@@ -38,7 +63,12 @@ export default {
               >Mật khẩu :</label
             >
             <div class="col-sm-9">
-              <input type="password" class="form-control" id="inputPassword" />
+              <input
+                type="password"
+                class="form-control"
+                id="inputPassword"
+                v-model="data.item.password"
+              />
             </div>
           </div>
           <div class="form-group row justify-content-around mb-0">
