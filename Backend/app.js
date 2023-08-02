@@ -43,10 +43,10 @@ const convertToLowercase = (req, res, next) => {
 
 app.use(convertToLowercase);
 //
-app.use("/api/account", accountRouter);
+app.use("/api/accounts", accountRouter);
 app.use("/api/login", loginRouter);
 
-app.use("/api/customer", customerRouter);
+app.use("/api/customers", customerRouter);
 // // check errors
 app.use((req, res, next) => {
   return next(createError(404, "Resource Not Found"));
