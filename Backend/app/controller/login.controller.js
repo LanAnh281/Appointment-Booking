@@ -87,3 +87,12 @@ exports.refreshAccessToken = async (req, res, next) => {
     res.send({ message: error, status: "fail" });
   }
 };
+exports.clearRefreshToken = async (req, res, next) => {
+  // Xóa cookie bằng cách đặt thời gian hết hạn về quá khứ
+  res.cookie("refreshToken", "", {
+    expires: new Date(0),
+    httpOnly: true,
+    secure: true,
+  });
+  res.send({ message: "Xóa token thành công", status: "success" });
+};
