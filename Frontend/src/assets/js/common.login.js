@@ -19,3 +19,16 @@ export const getCookieValue = (cookieName) => {
 
   return null;
 };
+
+export const clearCookieValue = () => {
+  const cookies = document.cookie.split("; ");
+
+  for (const cookie of cookies) {
+    const [name, value] = cookie.split("=");
+    console.log("name cookie:", name);
+    document.cookie =
+      name + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+  }
+
+  return null;
+};

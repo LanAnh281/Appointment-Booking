@@ -1,5 +1,7 @@
 <script>
 import { reactive } from "vue";
+import { useRoute, useRouter } from "vue-router";
+//service
 import Login from "../../service/login.service";
 import { checkCookieExistence } from "../../assets/js/common.login";
 export default {
@@ -11,6 +13,8 @@ export default {
         password: "",
       },
     });
+    const router = useRouter();
+
     const setCookie = (cname, cvalue, exdays) => {
       const d = new Date();
       d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
@@ -23,6 +27,9 @@ export default {
       console.log(`document:`, document._id);
       setCookie("token", document.token, 10); //1 ngày
       setCookie("role", document.role, 10);
+      if (document.role == "admin") {
+        router.push({ name: "Account" });
+      } else router.push({ name: "User" });
     };
     return {
       login,
@@ -36,7 +43,7 @@ export default {
     <div class="row justify-content-around align-items-center vh-100">
       <div class="card shadow col-4">
         <div class="row justify-content-center">
-          <router-link :to="{ name: 'Account' }" class="col-3">
+          <router-link :to="{ name: 'User' }" class="col-3">
             <img
               src="../../assets/image/logo.PNG"
               style="width: 100%; height: 100%"

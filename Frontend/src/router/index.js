@@ -6,13 +6,15 @@ const routes = [
     name: "Login",
     component: () => import("../view/common/login.vue"),
   },
+  //Admin
   {
     path: "/admin/account",
     name: "Account",
     component: () => import("../view/admin/account/account.vue"),
   },
+  //User
   {
-    path: "/user",
+    path: "/",
     name: "User",
     component: () => import("../view/user/index.vue"),
   },
