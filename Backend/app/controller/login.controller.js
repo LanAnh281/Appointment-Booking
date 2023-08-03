@@ -1,6 +1,26 @@
 const { Account } = require("../models/index.model.js");
 const jwt = require("jsonwebtoken");
 const secret = "asdfghjkl!@#";
+
+const crypto = require("crypto");
+
+const encryptionKey = "12345678912345678901234567890121";
+const iv = "0123456789abcdef";
+
+const setEncrypt = (value) => {
+  const cipher = crypto.createCipheriv("aes-256-cbc", encryptionKey, iv);
+  let encrypted = cipher.update(value, "utf8", "hex");
+  encrypted += cipher.final("hex");
+  return encrypted;
+};
+const getDecrypt = (name) => {
+  if (name) {
+    const decipher = crypto.createDecipheriv("aes-256-cbc", encryptionKey, iv);
+    let decrypted = decipher.update(name, "hex", "utf8");
+    decrypted += decipher.final("utf8");
+    return decrypted;
+  }
+};
 exports.login = async (req, res, next) => {
   const { userName, password } = req.body;
   console.log(userName, password);
@@ -13,7 +33,7 @@ exports.login = async (req, res, next) => {
     });
 
     if (documents) {
-      const refreshToken = documents["_id"];
+      const refreshToken = setEncrypt(documents["_id"]);
       res.cookie("refreshToken", refreshToken, {
         expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365),
         httpOnly: true,
@@ -36,7 +56,7 @@ exports.login = async (req, res, next) => {
   }
 };
 exports.refreshAccessToken = async (req, res, next) => {
-  const refreshToken = req.cookies["refreshToken"];
+  const refreshToken = getDecrypt(req.cookies["refreshToken"]);
   console.log("refreshToken:", refreshToken);
   try {
     const documents = await Account.findOne({
@@ -45,7 +65,7 @@ exports.refreshAccessToken = async (req, res, next) => {
       },
     });
     if (documents) {
-      const refreshToken = documents["_id"];
+      const refreshToken = setEncrypt(documents["_id"]);
       res.cookie("refreshToken", refreshToken, {
         expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365),
         httpOnly: true,
