@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="isRootPath == false">
+    <div v-if="isLoginPath == false">
       <Header></Header>
       <NavBar></NavBar>
       <div class="fluid-container">
@@ -12,7 +12,7 @@
         <Footer></Footer>
       </div>
     </div>
-    <div v-if="isRootPath">
+    <div v-if="isLoginPath">
       <router-view></router-view>
     </div>
   </div>
@@ -33,16 +33,14 @@ export default {
   },
   setup() {
     const route = useRoute();
-    const isRootPath = ref(false);
-    onMounted(() => {
-      console.log("object :>> ");
-    });
+    const isLoginPath = ref(false);
+    onMounted(() => {});
     watch(
       () => route.fullPath,
       (newPath, oldPath) => {
-        if (newPath == "/login") isRootPath.value = true;
+        if (newPath == "/login") isLoginPath.value = true;
         else {
-          isRootPath.value = false;
+          isLoginPath.value = false;
         }
         // Xử lý khi chuyển trang xảy ra
         console.log("Đã chuyển từ:", oldPath);
@@ -52,7 +50,7 @@ export default {
     );
 
     return {
-      isRootPath,
+      isLoginPath,
     };
   },
 };
