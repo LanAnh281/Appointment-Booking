@@ -6,7 +6,7 @@ const config = {
 };
 
 // Khởi tạo kết nối database
-const sequelize = new Sequelize("homelight", "root", "#NguyenAnh1111", {
+const sequelize = new Sequelize("crm", "root", "hocvien", {
   host: "localhost",
   dialect: "mysql",
 });
