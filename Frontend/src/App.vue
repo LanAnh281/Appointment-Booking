@@ -5,7 +5,7 @@
       <NavBar></NavBar>
       <div class="fluid-container">
         <div class="row m-0 p-0">
-          <SideBar class="col-2"></SideBar>
+          <!-- <SideBar class="col-2"></SideBar> -->
           <span class="mr-2"></span>
           <router-view class="col"></router-view>
         </div>
